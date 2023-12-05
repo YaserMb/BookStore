@@ -27,7 +27,7 @@ function App() {
 
   const fetchBooks = async () => {
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/books?page=${currentPage}`);
+      const response = await axios.get(base_url + `books?page=${currentPage}`);
       setBooks(response.data.data);
       setTotalPages(response.data.last_page);
       setPaginationLinks(response.data.links);
@@ -44,7 +44,7 @@ function App() {
   const handleSearch = async () => {
     
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/books/search?query=${search}`);
+      const response = await axios.get(base_url + `books/search?query=${search}`);
       setBooks(response.data.data);
       setTotalPages(response.data.last_page);
       setPaginationLinks(response.data.links);
