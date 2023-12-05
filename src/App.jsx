@@ -10,7 +10,9 @@ function App() {
   const [paginationLinks, setPaginationLinks] = useState([]);
   const [search, setSearch] = useState('');
   
-  const base_url = "http://127.0.0.1:8000/api/"
+  const base_url = import.meta.env.VITE_APP_API_URL;
+  
+  console.log(base_url)
   useEffect(() => {
     fetchBooks();
     // const response = axios.get(`${base_url}books/`)
