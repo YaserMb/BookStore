@@ -16,6 +16,12 @@ npm install
 
 4. Backend Integration.
 
+Create .env file and configure the backend url
+
+```
+VITE_APP_API_URL=https://url-backend-url
+```
+
 
 
 
