@@ -8,7 +8,8 @@ function App() {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [paginationLinks, setPaginationLinks] = useState([]);
-
+  const [search, setSearch] = useState('');
+  
   const base_url = "http://127.0.0.1:8000/api/"
   useEffect(() => {
     fetchBooks();
@@ -40,15 +41,45 @@ function App() {
     setCurrentPage(page);
   };
 
+  const handleSearch = async () => {
+    
+    try {
+      const response = await axios.get(`http://127.0.0.1:8000/api/books/search?query=${search}`);
+      setBooks(response.data.data);
+      setTotalPages(response.data.last_page);
+      setPaginationLinks(response.data.links);
+      // console.log(response.data.links)
+    }
+    catch (error) {
+      console.error('Error fetching books:', error);
+    }
+  }
 
-  console.log(paginationLinks, "paginationLinks")
   return (
     <>
       <Header />
       <div className="container">
         <div className="row">
           <div className="col-md-12 text-bg-light mt-5">
-            <h1>Books</h1>
+            <div className='row'>
+                <div className="col-md-6 text-right">
+                  <h1>Books</h1>
+                </div>
+                <div className="col-md-6 text-right">
+                  <div className='row' >
+                    <div className="col-md-8 ">
+                      <input type="text" onChange={(e)=>{setSearch(e.target.value)}} className="form-control" placeholder="Search" />
+                    </div>
+                      <div className="col-md-4">
+                        <button onClick={handleSearch} className="btn btn-primary" type="button">
+                          <i className="fa fa-search">Search</i>
+                        </button>
+                      </div>
+                    
+                    </div>
+                </div>
+
+            </div>
             <hr />
             <table className="table table-bordered">
               <thead>
